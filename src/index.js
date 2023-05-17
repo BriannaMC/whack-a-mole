@@ -2,8 +2,8 @@ const holes = document.querySelectorAll('.hole');
 const moles = document.querySelectorAll('.mole');
 const startButton = document.querySelector('#start');
 // TODO: Add the missing query selectors:
-const score = document.querySelector('score'); // Use querySelector() to get the score element
-const timerDisplay = document.querySelector('timer'); // use querySelector() to get the timer element.
+const score = document.querySelector('#score'); // Use querySelector() to get the score element
+const timerDisplay = document.querySelector('#timer'); // use querySelector() to get the timer element.
 
 let time = 0;
 let timer;
@@ -87,7 +87,6 @@ function chooseHole(holes) {
 * then it should call the `stopGame()` function. The function also needs to
 * return the timeoutId if the game continues or the string "game stopped"
 * if the game is over.
-*
 *  // if time > 0:
 *  //   timeoutId = showUp()
 *  //   return timeoutId
@@ -149,8 +148,15 @@ function showAndHide(hole, delay){
 */
 function toggleVisibility(hole){
   // TODO: add hole.classList.toggle so that it adds or removes the 'show' class.
-    hole.classList.toggle("show");  
-  return hole;
+   //if(hole.classList.contains('show')){
+   // hole.classList.remove('show');
+    // }else{
+    //  hole.classList.add('show');
+    //  }
+   // return hole;
+   // }
+    hole.classList.toggle('show'); 
+    return hole;
 }
 
 /**
@@ -190,6 +196,7 @@ function clearScore() {
 * Updates the control board with the timer if time > 0
 *
 */
+
 function updateTimer() {
   // TODO: Write your code here.
   // hint: this code is provided to you in the instructions.
@@ -222,18 +229,12 @@ function startTimer() {
 */
 function whack(event) {
   // TODO: Write your code here.
-  //event.preventDefault();
-  //event.stopPropagation();
-  // TODO: Add code to remove the mole that was clicked.
-  // For example, you should remove the mole from the board.
-  // You can use the removeChild function.
-  // Remove the mole from the board.
-  // Remove the mole from the board.
-  console.log("whack!")
   updateScore();
-
-  return points;
+   return points;
 }
+      
+  
+
 
 /**
 *
@@ -242,10 +243,10 @@ function whack(event) {
 */
 function setEventListeners(){
   // TODO: Write your code here
-  moles.forEach(
-    mole => mole.addEventListener('click', whack)
-  );
-  return moles;
+  for (var i = 0; i < moles.length; i++) {
+    moles[i].addEventListener('click', whack);
+    }
+    return moles;
 }
 
 /**
@@ -278,14 +279,18 @@ function stopGame(){
 *
 */
 function startGame(){
-  setDuration(10);
+  setDuration(15);
   showUp();
+  points = 0;
+  clearScore();
+  startTimer();
+  setEventListeners();
   return "game started";
 }
 
 startButton.addEventListener("click", startGame);
 
-
+//
 // Please do not modify the code below.
 // Used for testing purposes.
 window.randomInteger = randomInteger;
